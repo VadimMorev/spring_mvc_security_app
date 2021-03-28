@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create page</title>
+</head>
+<body>
+<div class="container">
+<h1>Edit</h1>
+<form th:action="@{/notes/edit}" th:object="${note}" name="note" method="post">
+    <div>
+    <input readonly type="number" th:field="*{id}" id="id" placeholder="ID">
+    </div>
+    <p>
+        <div>
+        <input name="title" type="text" placeholder="title">
+    </div>
+    <p>
+    <div>
+        <textarea name="message" id="" cols="30" rows="10" placeholder="message"></textarea>
+    </div>
+    <p>
+        <input type="submit" value="Edit">
+
+</form>
+<a href="/notes">Back</a>
+</div>
+<style>
+    body{
+        background-color: #eee;
+        font-family: sans-serif;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between ;
+        align-items: center;
+    }
+    div{
+        margin: 5px;
+    }
+    a {
+        margin: 5px;
+        color: red;
+
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: black;
+    }
+
+    a:visited {
+        color: purple;
+    }
+</style>
+</body>
+</html>

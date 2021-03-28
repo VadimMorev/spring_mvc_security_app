@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Note info</title>
+</head>
+<body>
+<div class="container">
+<h1>Note info</h1>
+<div th:text="${note.id}"></div>
+Title:
+<div th:text="${note.title}"></div>
+Message:
+<div th:text="${note.message}"></div>
+
+<a href="/notes">Back</a>
+</div>
+<style>
+    body{
+        background-color: #eee;
+        font-family: sans-serif;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between ;
+        align-items: center;
+    }
+    div{
+        margin: 5px;
+    }
+    a {
+        margin: 5px;
+        color: red;
+
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: black;
+    }
+
+    a:visited {
+        color: purple;
+    }
+</style>
+</body>
+</html>
