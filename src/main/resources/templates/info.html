@@ -5,6 +5,10 @@
     <title>Note info</title>
 </head>
 <body>
+<header>
+    <h1>My Notes App</h1>
+    <nav><a href="/">Home</a><a href="/notes">Notes  </a><a href="/admin-page">Admin Page  </a><a href="/manager-page">Manager Page</a></nav>
+</header>
 <div class="container">
 <h1>Note info</h1>
 <div th:text="${note.id}"></div>
@@ -16,6 +20,29 @@ Message:
 <a href="/notes">Back</a>
 </div>
 <style>
+    header a{
+        margin-left: 10px;
+        color: #eeeeee;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+    header a:hover{
+        text-decoration: underline;
+    }
+    header a:visited {
+        color: white;
+    }
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        letter-spacing: 1px;
+        height: 6em;
+        padding: 2em 10%;
+        background: #2c3e50;
+        color: #fff;
+    }
+
     body{
         background-color: #eee;
         font-family: sans-serif;
