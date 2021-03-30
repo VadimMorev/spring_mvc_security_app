@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+
+<div class="container">
+    <div th:if="${param.error}">Invalid username or password!!!</div>
+    <div th:if="${param.denied}">Access denied!</div>
+    <div th:unless="${param.attribute}"></div>
+<form action="/login" method="post">
+    <div>
+    <input type="text" name="username" placeholder="Username"/>
+    </div>
+    <div>
+    <input type="password" name="password" placeholder="Password"/>
+    </div>
+    <div>
+    <input type="checkbox" name="remember-me">Remember me
+    </div>
+    <input style="margin-bottom: 15px" type="submit" value="Sign In">
+</form>
+Don't have an account yet?<a href="/register"> Sign up.</a>
+</div>
+<style> body{
+    background-color: #eee;
+    font-family: sans-serif;
+}
+.container{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-between ;
+    align-items: center;
+}
+div{
+    margin: 15px;
+}
+a {
+    margin: 5px;
+    color: red;
+
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:active {
+    color: black;
+}
+
+a:visited {
+    color: purple;
+}</style>
+</body>
+</html>
