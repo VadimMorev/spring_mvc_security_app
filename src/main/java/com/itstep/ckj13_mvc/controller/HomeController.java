@@ -1,25 +1,24 @@
 package com.itstep.ckj13_mvc.controller;
 
-import com.itstep.ckj13_mvc.config.SecurityConfig;
 import com.itstep.ckj13_mvc.entity.User;
-import com.itstep.ckj13_mvc.repo.UserRepository;
+import com.itstep.ckj13_mvc.exception.UsernameOrEmailExistsException;
+import com.itstep.ckj13_mvc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.print.DocFlavor;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class HomeController {
-    UserRepository userRepository;
+    UserService userService;
+
     @Autowired
-    public HomeController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public HomeController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping
@@ -36,27 +35,33 @@ public class HomeController {
     public String managerPage() {
         return "manager-page";
     }
+
     @GetMapping("/login")
     public String signIn() {
         return "login";
     }
+
     @GetMapping("/register")
-    public String viewRegister(User user){
+    public String viewRegister(User user) {
         return "register";
     }
-    @PostMapping("/register")
-    public String signUp(@ModelAttribute(name = "user") User user){
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        User newUser = new User();
-        if (userRepository.findByUsername(user.getUsername())==null){
-            newUser.setUsername(user.getUsername());
-            newUser.setRole("ROLE_USER");
-            newUser.setPassword(encoder.encode(user.getPassword()));
-            userRepository.save(newUser);
-            return "redirect:/login";
-        }else{
-            return "redirect:/register?denied";
-        }
 
+    @PostMapping("/register")
+    public String signUp(@ModelAttribute(name = "user") User user,
+                         HttpServletRequest request) {
+        try {
+            userService.registerUser(user);
+            request.login(user.getUsername(), user.getPassword());
+            return "redirect:/";
+        } catch (UsernameOrEmailExistsException e) {
+            return "redirect:/register?denied";
+        } catch (ServletException e) {
+            e.printStackTrace();
+            return "redirect:/login";
+        }
     }
 }
+
+
+
+
