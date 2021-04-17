@@ -9,7 +9,8 @@
     <h1>My Notes App</h1>
     <nav><a href="/">Home</a><a href="/notes">Notes  </a><a href="/admin-page">Admin Page  </a><a href="/manager-page">Manager Page</a><a href="/logout">Logout</a></nav>
 </header>
-<h1>Hello</h1>
+<div class="container">
+<h1>Create new note</h1>
 <form action="/notes/add" name="note" method="post">
     <div>
         <input name="title" type="text" placeholder="title"/>
@@ -22,15 +23,19 @@
         <input type="submit" value="Create">
 
 </form>
+</div>
 <style>
-    a{
+    header a{
         margin-left: 10px;
         color: #eeeeee;
         text-decoration: none;
         text-transform: uppercase;
     }
-    a:hover{
+    header a:hover{
         text-decoration: underline;
+    }
+    header a:visited {
+        color: white;
     }
     header {
         display: flex;
@@ -41,6 +46,39 @@
         padding: 2em 10%;
         background: #2c3e50;
         color: #fff;
+    }
+
+    body{
+        background-color: #eee;
+        font-family: sans-serif;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content:space-between ;
+        align-items: center;
+    }
+    div{
+        margin: 5px;
+    }
+    a {
+        margin: 5px;
+        color: red;
+
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: black;
+    }
+
+    a:visited {
+        color: purple;
     }
 
 </style>

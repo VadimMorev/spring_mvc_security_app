@@ -1,10 +1,9 @@
 package com.itstep.ckj13_mvc.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,7 +20,17 @@ public class User {
     private String firstname;
     private String lastname;
     private int age;
+    private boolean enabled;
     @Column(unique = true)
     private String email;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Note> notes;
+
+    public void addNote(Note note) {
+        note.setUser(this);
+        notes.add(note);
+    }
 
 }

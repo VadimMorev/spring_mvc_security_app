@@ -25,6 +25,7 @@ public class UserService {
             User newUser = new User();
             newUser.setUsername(user.getUsername());
             newUser.setRole("ROLE_USER");
+            newUser.setEnabled(false);
             newUser.setPassword(encoder.encode(user.getPassword()));
             newUser.setEmail(user.getEmail());
             newUser.setFirstname(user.getFirstname());
@@ -34,5 +35,11 @@ public class UserService {
         }else{
             throw new UsernameOrEmailExistsException(user.getUsername());
         }
+    }
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
+    public User findUserByEmail(String email){
+        return userRepository.findByEmail(email);
     }
 }

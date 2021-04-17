@@ -1,8 +1,6 @@
 package com.itstep.ckj13_mvc.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
@@ -29,4 +27,8 @@ public class Note {
     @LastModifiedDate
     @Column(name = "date", nullable = false)
     private LocalDateTime dateOfCreation;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User user;
 }

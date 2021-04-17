@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Start Page</title>
 </head>
 <body>
-Hello, User.
+Hello, <span th:text="${username}"></span>.
 Let's use this
 <a href="/notes">App</a>
 </body>
