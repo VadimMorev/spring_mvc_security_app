@@ -11,19 +11,20 @@
 </header>
 <div class="container">
 <h1>Create new note</h1>
-<form action="/notes/add" name="note" method="post">
+<form action="/notes/add" name="note" method="post" onsubmit="return checkNotesCreateForm()">
     <div>
-        <input name="title" type="text" placeholder="title"/>
+        <input id="note-title" name="title" type="text" placeholder="title"/>
     </div>
     <p>
     <div>
-        <textarea name="message" id="" cols="30" rows="10" placeholder="message"></textarea>
+        <textarea id="note-text" name="message"  cols="30" rows="10" placeholder="message"></textarea>
     </div>
     <p>
         <input type="submit" value="Create">
 
 </form>
 </div>
+<script type="text/javascript" src="/scripts/notesValidation.js" ></script>
 <style>
     header a{
         margin-left: 10px;

@@ -45,7 +45,7 @@
                 <td th:text="${note.message}"></td>
                 <td th:text="${note.dateOfCreation}"></td>
                 <td><a th:href="@{notes/{id}(id=${note.id})}">Info</a></td>
-                <td><a th:href="@{notes/delete/{id}(id=${note.id})}">Delete</a></td>
+                <td><a th:href="@{notes/delete/{id}(id=${note.id})}" onclick="return confirm('Delete?')">Delete</a></td>
                 <td><a th:href="@{notes/edit/{id}(id=${note.id})}">Edit</a></td>
             </tr>
             </tbody>

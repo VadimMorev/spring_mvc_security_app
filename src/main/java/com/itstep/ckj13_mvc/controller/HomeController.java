@@ -117,7 +117,7 @@ public class HomeController {
         mailService.sendMail(mail);
         user.setPassword(encoder.encode(newPassword));
         userService.saveUser(user);
-        return "redirect:/login";
+        return "redirect:/login?email";
     }
 }
 
