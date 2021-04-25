@@ -34,7 +34,7 @@ class Ckj13MvcApplicationTests {
     @Disabled
     void contextLoads() {
         PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String str = "1357";
+        String str = "Qwerty1!";
         System.out.println(encoder.encode(str));
     }
 

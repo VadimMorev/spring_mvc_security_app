@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>All Notes</title>
-    <link type="text/css" rel="stylesheet" >
+    <link type="text/css" rel="stylesheet">
 </head>
 <body>
 <header>
     <h1>My Notes App</h1>
-    <nav><a href="/">Home</a><a href="/notes">Notes  </a><a href="/admin-page">Admin Page  </a><a href="/manager-page">Manager Page</a><a href="/logout">Logout</a></nav>
+    <nav><a href="/">Home</a><a href="/notes">Notes </a><a href="/admin-page">Admin Page </a><a href="/manager-page">Manager
+        Page</a><a href="/logout">Logout</a></nav>
 </header>
 <div class="container">
     <div id="cover">
         <form method="get" action="/notes/search" name="request">
             <div class="tb">
-                <div class="tdd"><input type="text" name="word" placeholder="Search" required></div>
+                <div class="tdd"><input id="searchInput" type="text" name="word" placeholder="Search"></div>
                 <div class="tdd" id="s-cover">
-                    <button type="submit">
+                    <button onclick="searchNotes()" type="submit">
                         <div id="s-circle"></div>
                         <span></span>
                     </button>
@@ -24,50 +25,75 @@
             </div>
         </form>
     </div>
-
-<div th:switch="${notes}">
-    <h2 th:case="null">No notes found!</h2>
-    <div th:case="*">
-        <h1>Note list</h1>
-        <div class="notes_table">
-        <table>
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Text</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="note:${notes}">
-                <td th:text="${note.id}"></td>
-                <td th:text="${note.title}"></td>
-                <td th:text="${note.message}"></td>
-                <td th:text="${note.dateOfCreation}"></td>
-                <td><a th:href="@{notes/{id}(id=${note.id})}">Info</a></td>
-                <td><a th:href="@{notes/delete/{id}(id=${note.id})}" onclick="return confirm('Delete?')">Delete</a></td>
-                <td><a th:href="@{notes/edit/{id}(id=${note.id})}">Edit</a></td>
-            </tr>
-            </tbody>
-        </table>
-        </div>
+    <div>
+        <textarea id="note-title" name="title" type="text" cols="30" rows="1" placeholder="Title"></textarea>
     </div>
-    <a th:href="@{/notes/create}">Create new note</a>
+    <div>
+        <textarea id="note-text" name="message"  cols="30" rows="10" placeholder="Message"></textarea>
+    </div>
+    <a onclick="saveNote()">Create new note</a>
+
+    <div th:switch="${notes}">
+        <h2 th:case="null">No notes found!</h2>
+        <div th:case="*">
+            <h1>Note list</h1>
+            <div class="notes_table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Text</th>
+                    </tr>
+                    </thead>
+                    <tbody id="el1">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+<!--        <a th:href="@{/notes/create}">Create new note</a>-->
+    </div>
+    <div>
+        <textarea id="edit-id" name="title" type="text" cols="10" rows="1" placeholder="Id"></textarea>
+    </div>
+    <div>
+        <textarea id="edit-title" name="title" type="text" cols="30" rows="1" placeholder="Title"></textarea>
+    </div>
+    <div>
+        <textarea id="edit-text" name="message"  cols="30" rows="10" placeholder="Message"></textarea>
+    </div>
+    <a onclick="editNote()">Edit note</a>
 </div>
-</div>
+
+<!--<script type="text/javascript" src="/scripts/searchNotes.js"></script>-->
+<script type="text/javascript" src="/scripts/showNote.js"></script>
+<script type="text/javascript" src="/scripts/editNote.js"></script>
+<script type="text/javascript" src="/scripts/deleteNote.js"></script>
+<script type="text/javascript" src="/scripts/saveNote.js"></script>
+<script type="text/javascript" src="/scripts/getNotes.js">
+
+</script>
 <style>
-    header a{
+
+    #note-title, #edit-id, #edit-title{
+        resize: none;
+    }
+    header a {
         margin-left: 10px;
         color: #eeeeee;
         text-decoration: none;
         text-transform: uppercase;
     }
-    header a:hover{
+
+    header a:hover {
         text-decoration: underline;
     }
+
     header a:visited {
         color: white;
     }
+
     header {
         display: flex;
         justify-content: space-between;
@@ -79,22 +105,26 @@
         color: #fff;
     }
 
-    body{
+    body {
         background-color: #eee;
         font-family: sans-serif;
     }
-    .container{
+
+    .container {
         display: flex;
         flex-direction: column;
-        justify-content:space-between ;
+        justify-content: space-between;
         align-items: center;
     }
-    .notes_table{
+
+    .notes_table {
         /*display: flex;*/
     }
-    td{
+
+    td {
         padding: 9px;
     }
+
     a {
         color: red;
 
@@ -113,20 +143,18 @@
     a:visited {
         color: purple;
     }
-    .tb
-    {
+
+    .tb {
         display: table;
         width: 100%;
     }
 
-    .tdd
-    {
+    .tdd {
         display: table-cell;
         vertical-align: middle;
     }
 
-    input, button
-    {
+    input, button {
         color: #fff;
         padding: 0;
         margin: 0;
@@ -134,8 +162,7 @@
         background-color: transparent;
     }
 
-    #cover
-    {
+    #cover {
         /*position: absolute;*/
         /*top: 50%;*/
         /*left: 0;*/
@@ -149,32 +176,27 @@
         transform: scale(0.6);
     }
 
-    form
-    {
+    form {
         height: 96px;
     }
 
-    input[type="text"]
-    {
+    input[type="text"] {
         width: 100%;
         height: 96px;
         font-size: 35px;
         line-height: 1;
     }
 
-    input[type="text"]::placeholder
-    {
+    input[type="text"]::placeholder {
         color: #e16868;
     }
 
-    #s-cover
-    {
+    #s-cover {
         width: 1px;
         padding-left: 35px;
     }
 
-    button
-    {
+    button {
         position: relative;
         display: block;
         width: 84px;
@@ -182,8 +204,7 @@
         cursor: pointer;
     }
 
-    #s-circle
-    {
+    #s-circle {
         position: relative;
         top: -8px;
         left: 0;
@@ -196,8 +217,7 @@
         transition: 0.5s ease all;
     }
 
-    button span
-    {
+    button span {
         position: absolute;
         top: 68px;
         left: 43px;
@@ -210,8 +230,7 @@
         transition: 0.5s ease all;
     }
 
-    button span:before, button span:after
-    {
+    button span:before, button span:after {
         content: '';
         position: absolute;
         bottom: -5px;
@@ -224,8 +243,7 @@
         transition: 0.5s ease all;
     }
 
-    #s-cover:hover #s-circle
-    {
+    #s-cover:hover #s-circle {
         top: -1px;
         width: 67px;
         height: 15px;
@@ -234,8 +252,7 @@
         border-radius: 20px;
     }
 
-    #s-cover:hover span
-    {
+    #s-cover:hover span {
         top: 50%;
         left: 56px;
         width: 25px;
@@ -243,19 +260,17 @@
         transform: rotateZ(0);
     }
 
-    #s-cover:hover button span:before
-    {
+    #s-cover:hover button span:before {
         bottom: 11px;
         transform: rotateZ(52deg);
     }
 
-    #s-cover:hover button span:after
-    {
+    #s-cover:hover button span:after {
         bottom: -11px;
         transform: rotateZ(-52deg);
     }
-    #s-cover:hover button span:before, #s-cover:hover button span:after
-    {
+
+    #s-cover:hover button span:before, #s-cover:hover button span:after {
         right: -6px;
         width: 40px;
         background-color: #fff;

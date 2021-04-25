@@ -8,7 +8,7 @@
 <div class="container">
     <b>SIGN UP</b>
     <div th:if="${param.denied}">Such username already exists!</div>
-    <form action="/register" name="user" method="post" style="margin-bottom: 15px" onsubmit="return checkForm()">
+    <form id="signup_form" action="/register" name="user" method="post" style="margin-bottom: 15px" >
         <div>
             <input id="username" type="text" name="username" placeholder="Username"  />
         </div>
@@ -28,10 +28,10 @@
             <input type="text" name="age" placeholder="Age" required/>
         </div>
         <div>
-            <input  type="email" name="email" placeholder="Email" required/>
+            <input id="email" type="email" name="email" placeholder="Email" required/>
         </div>
         <div>
-            <input style="margin-bottom: 15px" type="submit" value="Sign Up">
+            <button type="button" value="Sign up" onclick="submitForm()"></button>
         </div>
     </form>
     Do you already have an account?<a href="/login"> Log in</a>

@@ -1,5 +1,6 @@
 package com.itstep.ckj13_mvc.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class User {
     private int id;
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     private String password;
     private String role;
     private String firstname;
@@ -26,6 +28,7 @@ public class User {
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private List<Note> notes;
 
     public void addNote(Note note) {

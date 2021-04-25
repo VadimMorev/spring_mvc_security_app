@@ -17,9 +17,9 @@ public class NoteService {
     public NoteService(NoteRepository noteRepository) {
         this.noteRepository = noteRepository;
     }
-    public void save(Note note){
+    public Note save(Note note){
         note.setDateOfCreation(LocalDateTime.now());
-        noteRepository.save(note);
+         return noteRepository.save(note);
     }
     public List<Note> findAll(){
         return noteRepository.findAll();
