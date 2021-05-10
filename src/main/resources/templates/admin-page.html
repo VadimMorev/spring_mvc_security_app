@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,18 +7,76 @@
 <body>
 <header>
     <h1>My Notes App</h1>
-    <nav><a href="/">Home</a><a href="/notes">Notes  </a><a href="/admin-page">Admin Page  </a><a href="/manager-page">Manager Page</a><a href="/logout">Logout</a></nav>
+    <nav><a href="/">Home</a><a href="/notes">Notes </a><a href="/admin-page">Admin Page </a><a href="/manager-page">Manager
+        Page</a><a href="/logout">Logout</a></nav>
 </header>
-<h1>This is page for ADMIN!!!</h1>
+
+<div class="container">
+    <h1>User list</h1>
+    <div class="users_table">
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Role</th>
+                <th>Age</th>
+                <th>First name</th>
+                <th>Second name</th>
+                <th>Is active</th>
+            </tr>
+            </thead>
+            <tbody id="el1">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript" src="/scripts/getUsers.js"></script>
+<script type="text/javascript" src="/scripts/banUser.js"></script>
+
 <style>
-    a{
+    a {
         margin-left: 10px;
         color: #eeeeee;
         text-decoration: none;
         text-transform: uppercase;
     }
-    a:hover{
+
+    a:hover {
         text-decoration: underline;
+    }
+    a {
+        color: red;
+
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:active {
+        color: black;
+    }
+
+    a:visited {
+        color: purple;
+    }
+    header a {
+        margin-left: 10px;
+        color: #eeeeee;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
+
+    header a:hover {
+        text-decoration: underline;
+    }
+
+    header a:visited {
+        color: white;
     }
     header {
         display: flex;
@@ -29,6 +87,19 @@
         padding: 2em 10%;
         background: #2c3e50;
         color: #fff;
+    }
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    td {
+        padding: 9px;
+    }
+    body {
+        background-color: #eee;
+        font-family: sans-serif;
     }
 
 </style>

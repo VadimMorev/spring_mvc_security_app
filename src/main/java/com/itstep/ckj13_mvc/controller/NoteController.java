@@ -93,20 +93,20 @@ public class NoteController {
         return "redirect:/notes";
     }
 
-    @GetMapping("/search")
-    public String search(@RequestParam(name = "word") String word, Model model, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
-        List<Note> userNotes = user.getNotes();
-        List<Note> notes = noteService.search("%" + word + "%");
-        for (int i = 0; i < notes.size(); i++) {
-            Note note = notes.get(i);
-            if (!userNotes.contains(note)) {
-                notes.remove(note);
-            }
-        }
-        model.addAttribute("notes", notes);
-        return "notes";
-    }
+//    @GetMapping("/search")
+//    public String search(@RequestParam(name = "word") String word, Model model, Principal principal) {
+//        User user = userRepository.findByUsername(principal.getName());
+//        List<Note> userNotes = user.getNotes();
+//        List<Note> notes = noteService.search("%" + word + "%");
+//        for (int i = 0; i < notes.size(); i++) {
+//            Note note = notes.get(i);
+//            if (!userNotes.contains(note)) {
+//                notes.remove(note);
+//            }
+//        }
+//        model.addAttribute("notes", notes);
+//        return "notes";
+//    }
 
 }
 

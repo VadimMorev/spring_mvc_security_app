@@ -35,8 +35,24 @@ public class ApiController {
     }
 
     @GetMapping("/users")
-    public Iterable<User> getUsers() {
-        return userRepository.findAll();
+    public List<EntityModel<User>> getUsers() {
+        var users = (List<User>) userRepository.findAll();
+        var models = users.stream().map(user -> {
+            var entityModel = EntityModel.of(user, linkTo(methodOn(ApiController.class).banUser(user.getId())).withRel("ban"));
+            return entityModel;
+        }).collect(Collectors.toList());
+        return models;
+    }
+
+    @PutMapping("/users/{id}")
+    public User banUser(@PathVariable Integer id) {
+        User user = userRepository.findById(id).get();
+        if (user.isEnabled()) {
+            user.setEnabled(false);
+        } else {
+            user.setEnabled(true);
+        }
+        return userRepository.save(user);
     }
 
     @GetMapping("/notes")
@@ -44,8 +60,8 @@ public class ApiController {
 //        User user = userRepository.findByUsername(principal.getName());
 //        return user.getNotes();
         var notes = noteService.findAll();
-        var models = notes.stream().map(note->{
-            var entityModel = EntityModel.of(note,linkTo(methodOn(ApiController.class).getNote(note.getId())).withRel("info"),
+        var models = notes.stream().map(note -> {
+            var entityModel = EntityModel.of(note, linkTo(methodOn(ApiController.class).getNote(note.getId())).withRel("info"),
                     linkTo(methodOn(ApiController.class).deleteNote(note.getId())).withRel("delete"),
                     linkTo(methodOn(ApiController.class).changeNote(note)).withRel("edit"));
             return entityModel;
@@ -62,7 +78,7 @@ public class ApiController {
     @GetMapping("notes/{id}")
     public EntityModel<Note> getNote(@PathVariable(name = "id") int id) {
         var note = noteRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Id does not exist: " + id));
-        EntityModel<Note> response =  EntityModel.of(note, linkTo(methodOn(ApiController.class).getNotes()).withRel("notes"));
+        EntityModel<Note> response = EntityModel.of(note, linkTo(methodOn(ApiController.class).getNotes()).withRel("notes"));
         return response;
     }
 
@@ -80,15 +96,15 @@ public class ApiController {
 
     @GetMapping("/notes/search")
     public Iterable<Note> searchNotes(@RequestParam(name = "word") String word, Principal principal) {
-        User user = userRepository.findByUsername(principal.getName());
-        List<Note> userNotes = user.getNotes();
+//        User user = userRepository.findByUsername(principal.getName());
+//        List<Note> userNotes = user.getNotes();
         List<Note> notes = noteService.search("%" + word + "%");
-        for (int i = 0; i < notes.size(); i++) {
-            Note note = notes.get(i);
-            if (!userNotes.contains(note)) {
-                notes.remove(note);
-            }
-        }
+//        for (int i = 0; i < notes.size(); i++) {
+//            Note note = notes.get(i);
+//            if (!userNotes.contains(note)) {
+//                notes.remove(note);
+//            }
+//        }
         return notes;
     }
 

@@ -39,11 +39,11 @@ public class HomeController {
     }
 
 
-    @GetMapping
-    public String index(Model model, Principal principal) {
-        model.addAttribute("username", principal.getName());
-        return "index";
-    }
+//    @GetMapping
+//    public String index(Model model, Principal principal) {
+//        model.addAttribute("username", principal.getName());
+//        return "index";
+//    }
 
     @GetMapping("/admin-page")
     public String adminPage() {
